@@ -5,7 +5,7 @@ async function GetTableData(tableName) {
 
   return new Promise((resolve, reject) => {
     db.all(
-      `SELECT DISTINCT * FROM ${tableName} ORDER BY Date DESC LIMIT 100`,
+      `SELECT DISTINCT Date, Open, High, Low, Close FROM ${tableName} ORDER BY Date DESC LIMIT 200`,
       (err, rows) => {
         if (err) {
           reject(err);

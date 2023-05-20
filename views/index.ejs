@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
-    <title>Showcase EJS Table Data</title>
+    <title>Showcase Petrobras Table Data</title>
     <link rel="stylesheet" href="/styles/global.css" />
     <script src="/scripts/orderTable.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Showcase of the last 200 stock prices of
+    Petrobras (PETR4.SA)"
+    />
   </head>
   <body>
-    <h1>Table Data for PETR4.SA</h1>
-    <button id="orderButton" onclick="orderTableData('date')">
-      Order by Date
-    </button>
+    <h1>Dataset for PETR4.SA</h1>
+    <div class="buttonsContainer">
+      <button
+        id="orderButtonDate"
+        onclick="orderTableData('date')"
+        type="button"
+      >
+        Order by Date
+      </button>
+    </div>
 
     <table id="dataTable" data-order="desc">
       <thead>
