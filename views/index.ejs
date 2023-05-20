@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Showcase EJS Table Data</title>
+    <link rel="stylesheet" href="/styles/global.css" />
+    <script src="/scripts/orderTable.js"></script>
+  </head>
+  <body>
+    <h1>Table Data for PETR4.SA</h1>
+    <button id="orderButton" onclick="orderTableData('date')">
+      Order by Date
+    </button>
+
+    <table id="dataTable" data-order="desc">
+      <thead>
+        <tr>
+          <% Object.keys(tableData[0]).forEach((column) => { %>
+          <th><%= column %></th>
+          <% }); %>
+        </tr>
+      </thead>
+      <tbody>
+        <% tableData.forEach((row) => { %>
+        <tr>
+          <% Object.values(row).forEach((value) => { %>
+          <td><%= value %></td>
+          <% }); %>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </body>
+</html>
