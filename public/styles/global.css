@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
+  width: 100vw;
 }
 
 h1 {
@@ -11,6 +12,13 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  table {
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 
 th,
@@ -27,4 +35,27 @@ th {
 
 tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #e6e6e6;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #000a92;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #3947fd;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
 }

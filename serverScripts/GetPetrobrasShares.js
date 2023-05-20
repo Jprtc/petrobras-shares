@@ -16,7 +16,9 @@ async function downloadPetrobrasDailyHistory() {
     response.data.pipe(writer);
 
     writer.on("finish", () => {
-      console.log(`File '${fileName}' downloaded successfully.`);
+      console.log(
+        `CSV File downloaded successfully to filepath '${fileName}' ${new Date()}`
+      );
       resolve(fileName);
     });
 
@@ -45,12 +47,15 @@ async function createTableFromCSV(csvFilePath, tableName) {
         const columnNames = Object.keys(rows[0]);
 
         db.serialize(() => {
+          db.run("BEGIN TRANSACTION");
+
           const createTableStatement = `CREATE TABLE IF NOT EXISTS ${tableName} (${columnNames
             .map((column) => `${column} TEXT`)
             .join(", ")})`;
 
           db.run(createTableStatement, [], (err) => {
             if (err) {
+              db.run("ROLLBACK");
               reject(err);
               return;
             }
@@ -66,6 +71,16 @@ async function createTableFromCSV(csvFilePath, tableName) {
               values.forEach((row) => stmt.run(...row));
               stmt.finalize();
             });
+
+            db.run("COMMIT", (err) => {
+              if (err) {
+                db.run("ROLLBACK");
+                reject(err);
+                return;
+              }
+
+              resolve();
+            });
           });
         });
       });
@@ -77,6 +92,7 @@ async function GetPetrobrasShares() {
     const csvFilePath = await downloadPetrobrasDailyHistory();
     const tableName = "your_table";
     await createTableFromCSV(csvFilePath, tableName);
+    console.log(`Table created at: ${new Date()}`);
   } catch (err) {
     console.error(err);
   }
